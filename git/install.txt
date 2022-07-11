@@ -1,0 +1,2 @@
+Для Ubuntu
+sudo apt install git -y

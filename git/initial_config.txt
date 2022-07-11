@@ -1,0 +1,10 @@
+Настраиваем пользователя
+git config --global user.name %username%
+git config --global user.email %email%
+
+создаём каталог, например
+mkdir /home/engineer/git
+переходим в католог
+cd /home/engineer/git
+инициализируем католог в гите
+git init
