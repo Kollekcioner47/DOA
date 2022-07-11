@@ -1,0 +1,15 @@
+#Учимся работать с ветками
+#Сначала посмотрим какие ветки существуют
+git branch -a
+#создадим новую ветку под именем fork
+git branch fork
+#переключение активной ветки
+git checkout fork
+#создадим ещё одну ветку bugfix
+git branch bugfix
+#Перключим ветку на мастера
+git checkout master
+#Сольём ветки
+git merge bugfix
+#удалим ненужную ветку
+git branch -d bugfix
