@@ -13,3 +13,6 @@ git checkout master
 git merge bugfix
 #удалим ненужную ветку
 git branch -d bugfix
+#Если мы теперь посмотрим лог, то увидим что появилось новое поле merge
+git log
+#Мы можем сдвинуться на конкретный чекпоинт, если укажем его хэш в команде git checkout %HASH%
