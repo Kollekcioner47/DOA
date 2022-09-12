@@ -1,0 +1,64 @@
+wget https://github.com/prometheus/node_exporter/releases/download/v*/node_exporter-*.*-amd64.tar.gz
+tar xvfz node_exporter-*.*-amd64.tar.gz
+cd node_exporter-*.*-amd64
+./node_exporter
+
+Затем скопируйте исполняемый файл программы в /usr/local/bin:
+
+cp ~/Загрузки/node_exporter-1.1.2/node_exporter /usr/local/bin
+
+Далее создайте пользователя, от имени которого будете запускать программу:
+
+sudo useradd --no-create-home --shell /bin/false node_exporter
+
+И создайте юнит файл systemd для её запуска:
+
+sudo systemctl edit --full --force node_exporter.service
+
+[Unit]
+Description=Prometheus Node Exporter
+Wants=network-online.target
+After=network-online.target
+[Service]
+User=node_exporter
+Group=node_exporter
+Type=simple
+ExecStart=/usr/local/bin/node_exporter
+[Install]
+WantedBy=multi-user.target
+
+sudo systemctl start node_exporter
+sudo systemctl status node_exporter
+
+Как и в случае с Prometheus состояние должно быть active (running)
+
+http://localhost:9100/metrics
+
+Дальше нужно сообщить prometheus что необходимо собирать данные с этого экспортёра. Под каждого экспортёра в конфигурационном файле необходимо создавать подраздел в scrape_configs со следующим содержимым:
+
+  - job_name: 'имя_задачи'
+    scrape_interval: интервал_сбора_метрик
+    static_configs:
+      - targets: ['адрес:порт']
+
+В данном случае полный конфигурационный файл prometheus будет выглядеть вот так:
+sudo vi /etc/prometheus/prometheus.yml
+
+global:
+  scrape_interval: 15s
+  scrape_configs:
+    - job_name: 'prometheus'
+      scrape_interval: 5s
+      static_configs:
+        - targets: ['localhost:9090']
+    - job_name: 'prometheus_node'
+      scrape_interval: 5s
+      static_configs:
+        - targets: ['localhost:9100']
+
+
+ИМПОРТ ДОСКИ ДЛЯ NODE EXPORTER
+Аналогично метрикам от сервера Prometheus можно выводить в Grafana метрики любого другого экспортёра. Для большинства из них уже созданы шаблоны досок. Доску для node_exporter можно найти https://grafana.com/grafana/dashboards/1860. Откройте Dashboards -> Manage -> Import и введите идентификатор доски 1860
+
+На следующей странице введите название доски и выберите источник данных снова Prometheus
+После нажатия кнопки Import перед вами появится доска, и здесь уже данные намного интереснее, чем на предыдущей

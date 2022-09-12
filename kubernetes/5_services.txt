@@ -1,0 +1,30 @@
+создадим деплой 
+kubectl create deployment serv-deploy --image k8sphp
+отмасштабируем его
+kubectl scale deployment serv-deploy --replacas 3
+проверим
+kubectl get podes
+создадим сервис
+kubectl expose serv-deploy --type=ClusterIP --port 80
+kubectl get services
+проверим работу балансировки
+curl <здесь ip>
+curl <здесь ip>
+curl <здесь ip>
+должны быть разные ip в выдаче, что показывает что мы каждый раз попадаем на разные поды
+убъЄм сервис
+kubectl delete service serv-deploy
+другой вариант сервиса
+kubectl expose deployment serv-deploy --type=NodePort --port 80
+kubectl get service
+смотрим полученый порт
+открываем браузер и пишем
+<IP’оста>:<Port>
+kubectl delete svc serv-deploy
+
+“ќЋ№ ќ ƒЋя ќЅЋј„Ќџ’ —≈–¬»—ќ¬
+kubectl expose deployment serv-deploy --type=LoadBalancer --port 80
+kubectl get service
+вы увидите ip балансировщика
+kubectl delete svc serv-deploy
+

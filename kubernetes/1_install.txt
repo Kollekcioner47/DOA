@@ -1,0 +1,5 @@
+Установите и запустите минкуб
+https://kubernetes.io/ru/docs/tasks/tools/install-minikube/
+
+проверьте статус компонентов
+kubectl get componentstatus

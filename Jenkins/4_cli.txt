@@ -1,0 +1,25 @@
+скачаем клиент
+Заходим на веб-консоль
+manage jankins
+jankins cli
+скачиваем клиента
+wget localhost:8080/jnlpJars/jenkins-cli.jar
+запуск команд
+java -jar jenkins-cli.jar -auth username:password -s http://localhost:8080 [далее идёт команда], например who-am-i
+
+настроим аутентификацию по токену
+создадим юзера cli
+логинимся под ним
+заходим в свойства пользователя и выбираем configure
+add new token
+пишем имя и нажимаем generate, копируем результат и обязательно сохраняем в текстовый файл
+подключимся клиентом используя токен
+java -jar jenkins-cli.jar -auth cli:[token] -s http://localhost:8080 who-am-i
+
+можно использовать переменные окружения
+export JENKINS_ISER_ID=cli
+export JENKINS_API_TOKEN=[]ваш токен
+тогда команда будет выглядеть вот так:
+java -jar jenkins-cli.jar -s http://localhost:8080 who-am-i
+
+
