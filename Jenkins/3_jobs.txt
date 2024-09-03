@@ -64,7 +64,7 @@ echo "-------------Bild finished-------------"
 echo "-------------test started-------------"
 result=`grep "Hello" index.html | wc -1`
 echo $result
-if ["$result" = "1"]
+if [ "$result" = "1" ]
 then
 	echo "Test passed"
 else
