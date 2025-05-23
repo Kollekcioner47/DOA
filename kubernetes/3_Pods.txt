@@ -14,7 +14,7 @@ exit
 посмотреть логи 
 kubectl logs hello
 Перенаправить порты на свой под
-kubectl port-forwarding hello 8080:80
+kubectl port-forward hello 8080:80
 Теперь мы создадим под через манифест-файл
 создадим папку проекта
 mkdir k8s

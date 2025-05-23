@@ -9,7 +9,7 @@ kubectl get pods
 посмотрим описание деплоя
 kubectl describe deployments first-deploy
 отмасштабируем деплой
-kubectl scale deployment first-deploy --replica 4
+kubectl scale deployment first-deploy --replicas 4
 посмотрим реплики
 kubectl get rs
 проверим масштабирование
@@ -131,7 +131,7 @@ spec:
 
 ---
 apiVersion: autoscaling/v2
-kind: HorizontalPodAutoScaler
+kind: HorizontalPodAutoscaler
 metadata:
 	name: my-autoscale
 	spec:
